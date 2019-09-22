@@ -1,0 +1,33 @@
+---
+title: "Exercise B"
+author: "Sarah Morillo Leonardo"
+date: "22/09/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## First Step
+
+Sample 100 values from a log-normal distribution with mu = 1 and sigma = 0.25.
+
+```{r sample_values}
+n <- 100
+vals <- rlnorm(n, meanlog = 0, sdlog = 0.25)
+
+```
+
+
+## Second Step
+
+Create a histogram:
+
+```{r pressure, echo=FALSE}
+hist(vals, main = paste("Histogram of" ,  "log-normal distributed values"),
+     xlab = "values")
+
+```
+
+The mean of these values is:  `r mean(vals)` and the variance: `r var(vals)`. 
