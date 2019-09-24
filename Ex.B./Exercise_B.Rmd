@@ -1,33 +1,44 @@
 ---
-title: "Exercise B"
+title: "Samplig values from a log-normal distribution and visualizing it"
 author: "Sarah Morillo Leonardo"
 date: "22/09/2019"
 output: html_document
 ---
 
 ```{r setup, include=FALSE}
+library(ggplot2)
 knitr::opts_chunk$set(echo = TRUE)
 ```
+#### Description
+This is part B. of the firts exercise of the lecture "Statistical Analysis of High Throughput Genomic and Transcriptomic Data". The exercise consists of sampling 100 values from a log-normal distribution (with mu=1 and sigma=0.25) and then visualize them with histograms using different scales.
 
-## First Step
+##### Sampling values
 
 Sample 100 values from a log-normal distribution with mu = 1 and sigma = 0.25.
 
-```{r sample_values}
+```{r sample_values, include=TRUE}
 n <- 100
-vals <- rlnorm(n, meanlog = 0, sdlog = 0.25)
+vals <- rlnorm(n, meanlog = 1, sdlog = 0.25)
+vals.df <- data.frame(LogNormalValues = vals)
+```
 
+##### Histograms
+
+Histogram of the distribution
+
+```{r hist, echo=FALSE, message=FALSE}
+ggplot(data = vals.df, aes(LogNormalValues))+
+  geom_histogram()
+  #geom_histogram(binwidth = 0.15)
 ```
 
 
-## Second Step
-
-Create a histogram:
-
-```{r pressure, echo=FALSE}
-hist(vals, main = paste("Histogram of" ,  "log-normal distributed values"),
-     xlab = "values")
-
+Now we want to get the histogram on the log scale, i.e. taking the log of the log-normal distributed values. But since we know that the log of a log-normally distributed random variable is normally distributed, we get normally distributed values and the following histogram:
+ 
+```{r hist of logscaled , echo=FALSE, message=FALSE}
+ggplot(data = log(vals.df), aes(LogNormalValues))+
+  xlab("NormalValues")+
+  geom_histogram()
 ```
 
-The mean of these values is:  `r mean(vals)` and the variance: `r var(vals)`. 
+The mean of the values drawn from the log-normal distribution is:  `r mean(vals)` and the variance: `r var(vals)`. 
